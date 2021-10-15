@@ -1,0 +1,242 @@
+body {
+  height: 100vh;
+  display: flex;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.settings-wrapper {
+  background-color: #0097e6;
+  width: 28%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.players-name {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.player-name {
+  width: 80%;
+  height: 48px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #828282;
+  padding-left: 15px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 0px;
+  outline: none;
+}
+
+.player-name1:focus {
+  box-shadow: 0 0 5px #00000086;
+}
+
+.player-name2-wrapper:focus-within {
+  box-shadow: 0 0 5px #bd030386;
+}
+
+.player-name2-wrapper {
+  width: 80%;
+  height: 48px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 0px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.switch1 {
+  width: 56px;
+  height: 32px;
+  background-color: #0097e6;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  margin-right: 9px;
+}
+
+.switch-ball1 {
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  border-radius: 100%;
+  margin-left: calc(56px - 4px - 24px);
+  box-shadow: 0 0 4px #00000040;
+  transition: 375ms;
+}
+
+.switch-active1 {
+  margin-left: 4px;
+  transition: 375ms;
+}
+
+.type-match {
+  width: 80%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.type-match-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #45f391;
+}
+
+.type-match-choice {
+  width: 100%;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.type-match-caption {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.switch2 {
+  width: 52px;
+  height: 28px;
+  background-color: #0097e6;
+  border: 2px solid #ffffff;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.switch-ball2 {
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  border-radius: 100%;
+  margin-left: calc(52px - 4px - 24px);
+  box-shadow: 0 0 4px #00000040;
+  transition: 375ms;
+}
+
+.switch-active2 {
+  margin-left: 4px;
+  transition: 375ms;
+}
+
+.button-play,
+.button-restart {
+  width: 80%;
+  height: 54px;
+  margin-top: 45px;
+  background-color: #45f391;
+  border-radius: 10px;
+  border: 0px;
+  box-shadow: 0 4px 4px #00000040;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.button-restart {
+  margin-bottom: 50px;
+  margin-top: auto;
+  background-color: #ffffff;
+  color: #0097e6;
+}
+
+.button-play:hover,
+.button-restart:hover {
+  cursor: pointer;
+}
+
+.button-play:hover {
+  background-color: #45f391cc;
+  transition: 500ms;
+}
+
+.button-restart:hover {
+  background-color: #ffffffcc;
+  transition: 500ms;
+}
+
+.match-history-wrapper {
+  margin-top: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+
+.match-history-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.match-history {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-winner {
+  width: 168px;
+  height: 54px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 0px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+
+.winner-txt {
+  font-size: 14px;
+  font-weight: 700;
+  color: #45f391;
+}
+
+.winner-name {
+  font-size: 14px;
+  color: #828282;
+}
+
+.scenery-txt {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.small-board {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.board-piece {
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  border: 1.5px solid #0097e6;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #828282;
+  font-size: 12px;
+  font-weight: 700;
+}

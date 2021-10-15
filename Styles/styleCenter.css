@@ -1,0 +1,4 @@
+.board-wrapper {
+  background-color: #2baaeaab;
+  width: calc(100% - 28% - 28%);
+}
