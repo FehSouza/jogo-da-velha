@@ -1,4 +1,68 @@
 .board-wrapper {
   background-color: #2baaeaab;
   width: calc(100% - 28% - 28%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scoreboard-wrapper {
+  background-color: #ffffff;
+  width: 66.66%;
+  height: 100px;
+  margin-top: 50px;
+  border-radius: 15px;
+  border: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.scoreboard-title {
+  color: #0097e6;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+
+.points {
+  color: #0097e6;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.player-won-points {
+  color: #828282;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.big-board {
+  width: 525px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 70px;
+}
+
+.big-board-piece {
+  background-color: #ffffff;
+  width: 160px;
+  height: 160px;
+  margin: 7.5px;
+  border-radius: 15px;
+  border: 0px;
+  color: #828282;
+  font-size: 130px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 4px #00000040;
 }
