@@ -8,21 +8,25 @@
 
 .scoreboard-wrapper {
   background-color: #ffffff;
-  width: 66.66%;
+  width: 65%;
   height: 100px;
   margin-top: 50px;
   border-radius: 15px;
-  border: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
 }
 
-.scoreboard-title {
+.scoreboard-title,
+.points {
   color: #0097e6;
   font-size: 24px;
   font-weight: 700;
+}
+
+.points {
+  font-size: 48px;
 }
 
 .scoreboard {
@@ -30,12 +34,6 @@
   justify-content: space-between;
   align-items: center;
   width: 80%;
-}
-
-.points {
-  color: #0097e6;
-  font-size: 48px;
-  font-weight: 700;
 }
 
 .player-won-points {
@@ -57,7 +55,6 @@
   height: 160px;
   margin: 7.5px;
   border-radius: 15px;
-  border: 0px;
   color: #828282;
   font-size: 130px;
   font-weight: 700;
@@ -65,4 +62,10 @@
   align-items: center;
   justify-content: center;
   box-shadow: 4px 4px 4px #00000040;
+  cursor: pointer;
+}
+
+.big-board-piece:hover {
+  background-color: #f3f3f3;
+  transition: 325ms;
 }
