@@ -63,9 +63,14 @@
   justify-content: center;
   box-shadow: 4px 4px 4px #00000040;
   cursor: pointer;
+  user-select: none;
 }
 
 .big-board-piece:hover {
   background-color: #f3f3f3;
   transition: 325ms;
+}
+
+.won {
+  color: #0097e6;
 }
