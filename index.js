@@ -49,8 +49,10 @@ $bigBoardPiece1.addEventListener("click", () => {
   if ($bigBoardPiece1.textContent === "") {
     printPlay($bigBoardPiece1);
     verifyWinner();
+    checkBoardFilled();
     printNameWinner();
     toggleMoves();
+    resetBoard();
   }
 });
 
@@ -58,8 +60,10 @@ $bigBoardPiece2.addEventListener("click", () => {
   if ($bigBoardPiece2.textContent === "") {
     printPlay($bigBoardPiece2);
     verifyWinner();
+    checkBoardFilled();
     printNameWinner();
     toggleMoves();
+    resetBoard();
   }
 });
 
@@ -67,8 +71,10 @@ $bigBoardPiece3.addEventListener("click", () => {
   if ($bigBoardPiece3.textContent === "") {
     printPlay($bigBoardPiece3);
     verifyWinner();
+    checkBoardFilled();
     printNameWinner();
     toggleMoves();
+    resetBoard();
   }
 });
 
@@ -76,8 +82,10 @@ $bigBoardPiece4.addEventListener("click", () => {
   if ($bigBoardPiece4.textContent === "") {
     printPlay($bigBoardPiece4);
     verifyWinner();
+    checkBoardFilled();
     printNameWinner();
     toggleMoves();
+    resetBoard();
   }
 });
 
@@ -85,8 +93,10 @@ $bigBoardPiece5.addEventListener("click", () => {
   if ($bigBoardPiece5.textContent === "") {
     printPlay($bigBoardPiece5);
     verifyWinner();
+    checkBoardFilled();
     printNameWinner();
     toggleMoves();
+    resetBoard();
   }
 });
 
@@ -94,8 +104,10 @@ $bigBoardPiece6.addEventListener("click", () => {
   if ($bigBoardPiece6.textContent === "") {
     printPlay($bigBoardPiece6);
     verifyWinner();
+    checkBoardFilled();
     printNameWinner();
     toggleMoves();
+    resetBoard();
   }
 });
 
@@ -103,8 +115,10 @@ $bigBoardPiece7.addEventListener("click", () => {
   if ($bigBoardPiece7.textContent === "") {
     printPlay($bigBoardPiece7);
     verifyWinner();
+    checkBoardFilled();
     printNameWinner();
     toggleMoves();
+    resetBoard();
   }
 });
 
@@ -112,8 +126,10 @@ $bigBoardPiece8.addEventListener("click", () => {
   if ($bigBoardPiece8.textContent === "") {
     printPlay($bigBoardPiece8);
     verifyWinner();
+    checkBoardFilled();
     printNameWinner();
     toggleMoves();
+    resetBoard();
   }
 });
 
@@ -121,8 +137,10 @@ $bigBoardPiece9.addEventListener("click", () => {
   if ($bigBoardPiece9.textContent === "") {
     printPlay($bigBoardPiece9);
     verifyWinner();
+    checkBoardFilled();
     printNameWinner();
     toggleMoves();
+    resetBoard();
   }
 });
 
@@ -158,6 +176,49 @@ function colorPlayerWinner(listWinner) {
 }
 
 function printNameWinner() {
-  if (verifyWinner() === currentMove)
+  if (verifyWinner() === currentMove) {
     $playerWonPoints.textContent = `Jogador ganhador: ${verifyWinner()}`;
+  }
+  if (currentMove === "Empate") {
+    $playerWonPoints.textContent = `${currentMove}`;
+  }
+}
+
+function resetBoard() {
+  if (verifyWinner() === currentMove) {
+    setTimeout(() => {
+      for (const itemList of allLists) {
+        itemList[0].textContent = "";
+        itemList[1].textContent = "";
+        itemList[2].textContent = "";
+      }
+    }, 1500);
+    return (currentMove = "X");
+  }
+  if (currentMove === "Empate") {
+    setTimeout(() => {
+      for (const itemList of allLists) {
+        itemList[0].textContent = "";
+        itemList[1].textContent = "";
+        itemList[2].textContent = "";
+      }
+    }, 1500);
+    return (currentMove = "X");
+  }
+}
+
+function checkBoardFilled() {
+  if (
+    $bigBoardPiece1.textContent !== "" &&
+    $bigBoardPiece2.textContent !== "" &&
+    $bigBoardPiece3.textContent !== "" &&
+    $bigBoardPiece4.textContent !== "" &&
+    $bigBoardPiece5.textContent !== "" &&
+    $bigBoardPiece6.textContent !== "" &&
+    $bigBoardPiece7.textContent !== "" &&
+    $bigBoardPiece8.textContent !== "" &&
+    $bigBoardPiece9.textContent !== ""
+  ) {
+    currentMove = "Empate";
+  }
 }
