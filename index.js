@@ -13,7 +13,13 @@ const $bigBoardPiece9 = document.querySelector(".big-board-piece9");
 
 const $playerWonPoints = document.querySelector(".player-won-points");
 
+const $pointsPlayer1txt = document.querySelector(".points-jogador1");
+const $pointsPlayer2txt = document.querySelector(".points-jogador2");
+
 let currentMove = "X";
+
+let pointsPlayer1 = 0;
+let pointsPlayer2 = 0;
 
 const listHorizontal1 = [$bigBoardPiece1, $bigBoardPiece2, $bigBoardPiece3];
 const listHorizontal2 = [$bigBoardPiece4, $bigBoardPiece5, $bigBoardPiece6];
@@ -169,40 +175,50 @@ function verifyWinner() {
 function colorPlayerWinner(listWinner) {
   for (const item of listWinner) {
     item.classList.add("won");
+    desableButtons();
     setTimeout(() => {
       item.classList.remove("won");
-    }, 1500);
+      enableButtons();
+    }, 2000);
   }
 }
 
 function printNameWinner() {
   if (verifyWinner() === currentMove) {
     $playerWonPoints.textContent = `Jogador ganhador: ${verifyWinner()}`;
+    givePoints(currentMove);
+    setTimeout(() => {
+      $playerWonPoints.textContent = "Aguardando jogadas...";
+    }, 2000);
   }
   if (currentMove === "Empate") {
     $playerWonPoints.textContent = `${currentMove}`;
+    setTimeout(() => {
+      $playerWonPoints.textContent = "Aguardando jogadas...";
+    }, 2000);
+  }
+}
+
+function givePoints(playerWinner) {
+  if (playerWinner === "X") {
+    pointsPlayer1++;
+    $pointsPlayer1txt.textContent = pointsPlayer1;
+  }
+  if (playerWinner === "O") {
+    pointsPlayer2++;
+    $pointsPlayer2txt.textContent = pointsPlayer2;
   }
 }
 
 function resetBoard() {
-  if (verifyWinner() === currentMove) {
+  if (verifyWinner() === currentMove || currentMove === "Empate") {
     setTimeout(() => {
       for (const itemList of allLists) {
         itemList[0].textContent = "";
         itemList[1].textContent = "";
         itemList[2].textContent = "";
       }
-    }, 1500);
-    return (currentMove = "X");
-  }
-  if (currentMove === "Empate") {
-    setTimeout(() => {
-      for (const itemList of allLists) {
-        itemList[0].textContent = "";
-        itemList[1].textContent = "";
-        itemList[2].textContent = "";
-      }
-    }, 1500);
+    }, 2000);
     return (currentMove = "X");
   }
 }
@@ -217,8 +233,33 @@ function checkBoardFilled() {
     $bigBoardPiece6.textContent !== "" &&
     $bigBoardPiece7.textContent !== "" &&
     $bigBoardPiece8.textContent !== "" &&
-    $bigBoardPiece9.textContent !== ""
+    $bigBoardPiece9.textContent !== "" &&
+    verifyWinner() !== currentMove
   ) {
     currentMove = "Empate";
   }
+}
+
+function desableButtons() {
+  $bigBoardPiece1.disabled = true;
+  $bigBoardPiece2.disabled = true;
+  $bigBoardPiece3.disabled = true;
+  $bigBoardPiece4.disabled = true;
+  $bigBoardPiece5.disabled = true;
+  $bigBoardPiece6.disabled = true;
+  $bigBoardPiece7.disabled = true;
+  $bigBoardPiece8.disabled = true;
+  $bigBoardPiece9.disabled = true;
+}
+
+function enableButtons() {
+  $bigBoardPiece1.disabled = false;
+  $bigBoardPiece2.disabled = false;
+  $bigBoardPiece3.disabled = false;
+  $bigBoardPiece4.disabled = false;
+  $bigBoardPiece5.disabled = false;
+  $bigBoardPiece6.disabled = false;
+  $bigBoardPiece7.disabled = false;
+  $bigBoardPiece8.disabled = false;
+  $bigBoardPiece9.disabled = false;
 }
