@@ -43,11 +43,11 @@ const allLists = [
   listDiagonal2,
 ];
 
-$switchBall1.addEventListener("click", function () {
+$switchBall1.addEventListener("click", () => {
   $switchBall1.classList.toggle("switch-active1");
 });
 
-$switchBall2.addEventListener("click", function () {
+$switchBall2.addEventListener("click", () => {
   $switchBall2.classList.toggle("switch-active2");
 });
 
@@ -150,19 +150,19 @@ $bigBoardPiece9.addEventListener("click", () => {
   }
 });
 
-function printPlay(board) {
+const printPlay = (board) => {
   board.textContent = currentMove;
-}
+};
 
-function toggleMoves() {
+const toggleMoves = () => {
   if (currentMove === "X") return (currentMove = "O");
   if (currentMove === "O") return (currentMove = "X");
-}
+};
 
-function verifyWinner() {
+const verifyWinner = () => {
   for (const list of allLists) {
     if (
-      list[0].textContent !== "" &&
+      list[0].textContent &&
       list[0].textContent === list[1].textContent &&
       list[1].textContent === list[2].textContent
     ) {
@@ -170,47 +170,53 @@ function verifyWinner() {
       return currentMove;
     }
   }
-}
+};
 
-function colorPlayerWinner(listWinner) {
+const colorPlayerWinner = (listWinner) => {
   for (const item of listWinner) {
     item.classList.add("won");
     desableButtons();
+
     setTimeout(() => {
       item.classList.remove("won");
       enableButtons();
     }, 2000);
   }
-}
+};
 
-function printNameWinner() {
+const printNameWinner = () => {
   if (verifyWinner() === currentMove) {
     $playerWonPoints.textContent = `Jogador ganhador: ${verifyWinner()}`;
     givePoints(currentMove);
+
     setTimeout(() => {
       $playerWonPoints.textContent = "Aguardando jogadas...";
     }, 2000);
   }
+
   if (currentMove === "Empate") {
     $playerWonPoints.textContent = `${currentMove}`;
+
     setTimeout(() => {
       $playerWonPoints.textContent = "Aguardando jogadas...";
     }, 2000);
   }
-}
+};
 
-function givePoints(playerWinner) {
+const givePoints = (playerWinner) => {
   if (playerWinner === "X") {
     pointsPlayer1++;
-    $pointsPlayer1txt.textContent = pointsPlayer1;
+    if (pointsPlayer1 < 10) $pointsPlayer1txt.textContent = `0${pointsPlayer1}`;
+    if (pointsPlayer1 >= 10) $pointsPlayer1txt.textContent = `${pointsPlayer1}`;
   }
   if (playerWinner === "O") {
     pointsPlayer2++;
-    $pointsPlayer2txt.textContent = pointsPlayer2;
+    if (pointsPlayer2 < 10) $pointsPlayer2txt.textContent = `0${pointsPlayer2}`;
+    if (pointsPlayer2 >= 10) $pointsPlayer2txt.textContent = `${pointsPlayer2}`;
   }
-}
+};
 
-function resetBoard() {
+const resetBoard = () => {
   if (verifyWinner() === currentMove || currentMove === "Empate") {
     setTimeout(() => {
       for (const itemList of allLists) {
@@ -221,26 +227,26 @@ function resetBoard() {
     }, 2000);
     return (currentMove = "X");
   }
-}
+};
 
-function checkBoardFilled() {
+const checkBoardFilled = () => {
   if (
-    $bigBoardPiece1.textContent !== "" &&
-    $bigBoardPiece2.textContent !== "" &&
-    $bigBoardPiece3.textContent !== "" &&
-    $bigBoardPiece4.textContent !== "" &&
-    $bigBoardPiece5.textContent !== "" &&
-    $bigBoardPiece6.textContent !== "" &&
-    $bigBoardPiece7.textContent !== "" &&
-    $bigBoardPiece8.textContent !== "" &&
-    $bigBoardPiece9.textContent !== "" &&
+    $bigBoardPiece1.textContent &&
+    $bigBoardPiece2.textContent &&
+    $bigBoardPiece3.textContent &&
+    $bigBoardPiece4.textContent &&
+    $bigBoardPiece5.textContent &&
+    $bigBoardPiece6.textContent &&
+    $bigBoardPiece7.textContent &&
+    $bigBoardPiece8.textContent &&
+    $bigBoardPiece9.textContent &&
     verifyWinner() !== currentMove
   ) {
     currentMove = "Empate";
   }
-}
+};
 
-function desableButtons() {
+const desableButtons = () => {
   $bigBoardPiece1.disabled = true;
   $bigBoardPiece2.disabled = true;
   $bigBoardPiece3.disabled = true;
@@ -250,9 +256,9 @@ function desableButtons() {
   $bigBoardPiece7.disabled = true;
   $bigBoardPiece8.disabled = true;
   $bigBoardPiece9.disabled = true;
-}
+};
 
-function enableButtons() {
+const enableButtons = () => {
   $bigBoardPiece1.disabled = false;
   $bigBoardPiece2.disabled = false;
   $bigBoardPiece3.disabled = false;
@@ -262,4 +268,4 @@ function enableButtons() {
   $bigBoardPiece7.disabled = false;
   $bigBoardPiece8.disabled = false;
   $bigBoardPiece9.disabled = false;
-}
+};
