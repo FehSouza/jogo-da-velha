@@ -19,7 +19,7 @@
   flex-direction: column;
   align-items: center;
   width: 75%;
-  max-height: 840px;
+  max-height: 810px;
   overflow: auto;
   padding-right: 8px;
 }
@@ -53,6 +53,7 @@
   font-size: 14px;
   font-weight: 700;
   padding: 3px 0px;
+  text-transform: capitalize;
 }
 
 .move {

@@ -40,6 +40,7 @@
   color: #828282;
   font-size: 16px;
   font-weight: 500;
+  text-transform: capitalize;
 }
 
 .big-board {
@@ -68,8 +69,13 @@
 }
 
 .big-board-piece:hover {
-  background-color: #f3f3f3;
+  background-color: #dbdbdb;
   transition: 325ms;
+}
+
+.big-board-piece:disabled {
+  background-color: #dbdbdb;
+  cursor: not-allowed;
 }
 
 .won {

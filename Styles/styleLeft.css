@@ -32,6 +32,7 @@ body {
   border-radius: 10px;
   border: 0px;
   outline: none;
+  text-transform: capitalize;
 }
 
 .player-name1:focus {
@@ -166,6 +167,12 @@ body {
 .button-restart:hover {
   background-color: #ffffffcc;
   transition: 500ms;
+}
+
+.button-restart:disabled,
+.button-play:disabled {
+  cursor: not-allowed;
+  background-color: #dbdbdb;
 }
 
 .match-history-wrapper {
