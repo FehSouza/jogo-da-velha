@@ -1,6 +1,5 @@
 const $switchBall1 = document.querySelector(".switch-ball1");
 const $switchBall2 = document.querySelector(".switch-ball2");
-
 const $bigBoardPiece1 = document.querySelector(".big-board-piece1");
 const $bigBoardPiece2 = document.querySelector(".big-board-piece2");
 const $bigBoardPiece3 = document.querySelector(".big-board-piece3");
@@ -10,22 +9,17 @@ const $bigBoardPiece6 = document.querySelector(".big-board-piece6");
 const $bigBoardPiece7 = document.querySelector(".big-board-piece7");
 const $bigBoardPiece8 = document.querySelector(".big-board-piece8");
 const $bigBoardPiece9 = document.querySelector(".big-board-piece9");
-
 const $playerWonPoints = document.querySelector(".player-won-points");
-
 const $pointsPlayer1txt = document.querySelector(".points-jogador1");
 const $pointsPlayer2txt = document.querySelector(".points-jogador2");
-
 const $playerName1 = document.querySelector(".player-name1");
 const $playerName2 = document.querySelector(".player-name2");
-
 const $playHistoryList = document.querySelector(".play-history-list");
-
 const $buttonPlay = document.querySelector(".button-play");
 const $buttonRestart = document.querySelector(".button-restart");
+const $matchHistoryList = document.querySelector(".match-history-list");
 
 let currentMove = "X";
-
 let pointsPlayer1 = 0;
 let pointsPlayer2 = 0;
 let isPlaying = false;
@@ -45,11 +39,9 @@ const listBigButons = [
 const listHorizontal1 = [$bigBoardPiece1, $bigBoardPiece2, $bigBoardPiece3];
 const listHorizontal2 = [$bigBoardPiece4, $bigBoardPiece5, $bigBoardPiece6];
 const listHorizontal3 = [$bigBoardPiece7, $bigBoardPiece8, $bigBoardPiece9];
-
 const listVertical1 = [$bigBoardPiece1, $bigBoardPiece4, $bigBoardPiece7];
 const listVertical2 = [$bigBoardPiece2, $bigBoardPiece5, $bigBoardPiece8];
 const listVertical3 = [$bigBoardPiece3, $bigBoardPiece6, $bigBoardPiece9];
-
 const listDiagonal1 = [$bigBoardPiece1, $bigBoardPiece5, $bigBoardPiece9];
 const listDiagonal2 = [$bigBoardPiece3, $bigBoardPiece5, $bigBoardPiece7];
 
@@ -77,8 +69,12 @@ $bigBoardPiece1.addEventListener("click", () => {
     printPlay($bigBoardPiece1);
     verifyWinner();
     checkBoardFilled();
-    printNameWinner();
     addPlayHistory(currentMove, "Primeiro quadrado");
+    if (verifyWinner() === currentMove || currentMove === "Empate") {
+      addMatchHistory();
+      givePoints();
+      printNameWinner();
+    }
     toggleMoves();
     resetBoard();
   }
@@ -89,8 +85,12 @@ $bigBoardPiece2.addEventListener("click", () => {
     printPlay($bigBoardPiece2);
     verifyWinner();
     checkBoardFilled();
-    printNameWinner();
     addPlayHistory(currentMove, "Segundo quadrado");
+    if (verifyWinner() === currentMove || currentMove === "Empate") {
+      addMatchHistory();
+      givePoints();
+      printNameWinner();
+    }
     toggleMoves();
     resetBoard();
   }
@@ -101,8 +101,12 @@ $bigBoardPiece3.addEventListener("click", () => {
     printPlay($bigBoardPiece3);
     verifyWinner();
     checkBoardFilled();
-    printNameWinner();
     addPlayHistory(currentMove, "Terceiro quadrado");
+    if (verifyWinner() === currentMove || currentMove === "Empate") {
+      addMatchHistory();
+      givePoints();
+      printNameWinner();
+    }
     toggleMoves();
     resetBoard();
   }
@@ -113,8 +117,12 @@ $bigBoardPiece4.addEventListener("click", () => {
     printPlay($bigBoardPiece4);
     verifyWinner();
     checkBoardFilled();
-    printNameWinner();
     addPlayHistory(currentMove, "Quarto quadrado");
+    if (verifyWinner() === currentMove || currentMove === "Empate") {
+      addMatchHistory();
+      givePoints();
+      printNameWinner();
+    }
     toggleMoves();
     resetBoard();
   }
@@ -125,8 +133,12 @@ $bigBoardPiece5.addEventListener("click", () => {
     printPlay($bigBoardPiece5);
     verifyWinner();
     checkBoardFilled();
-    printNameWinner();
     addPlayHistory(currentMove, "Quinto quadrado");
+    if (verifyWinner() === currentMove || currentMove === "Empate") {
+      addMatchHistory();
+      givePoints();
+      printNameWinner();
+    }
     toggleMoves();
     resetBoard();
   }
@@ -137,8 +149,12 @@ $bigBoardPiece6.addEventListener("click", () => {
     printPlay($bigBoardPiece6);
     verifyWinner();
     checkBoardFilled();
-    printNameWinner();
     addPlayHistory(currentMove, "Sexto quadrado");
+    if (verifyWinner() === currentMove || currentMove === "Empate") {
+      addMatchHistory();
+      givePoints();
+      printNameWinner();
+    }
     toggleMoves();
     resetBoard();
   }
@@ -149,8 +165,12 @@ $bigBoardPiece7.addEventListener("click", () => {
     printPlay($bigBoardPiece7);
     verifyWinner();
     checkBoardFilled();
-    printNameWinner();
     addPlayHistory(currentMove, "Sétimo quadrado");
+    if (verifyWinner() === currentMove || currentMove === "Empate") {
+      addMatchHistory();
+      givePoints();
+      printNameWinner();
+    }
     toggleMoves();
     resetBoard();
   }
@@ -161,8 +181,12 @@ $bigBoardPiece8.addEventListener("click", () => {
     printPlay($bigBoardPiece8);
     verifyWinner();
     checkBoardFilled();
-    printNameWinner();
     addPlayHistory(currentMove, "Oitavo quadrado");
+    if (verifyWinner() === currentMove || currentMove === "Empate") {
+      addMatchHistory();
+      givePoints();
+      printNameWinner();
+    }
     toggleMoves();
     resetBoard();
   }
@@ -173,8 +197,12 @@ $bigBoardPiece9.addEventListener("click", () => {
     printPlay($bigBoardPiece9);
     verifyWinner();
     checkBoardFilled();
-    printNameWinner();
     addPlayHistory(currentMove, "Nono quadrado");
+    if (verifyWinner() === currentMove || currentMove === "Empate") {
+      addMatchHistory();
+      givePoints();
+      printNameWinner();
+    }
     toggleMoves();
     resetBoard();
   }
@@ -183,13 +211,13 @@ $bigBoardPiece9.addEventListener("click", () => {
 $buttonPlay.addEventListener("click", () => {
   isPlaying = true;
   selectEnableButton(...listBigButons, $buttonRestart);
-  selectDesableButton($buttonPlay);
+  selectDesableButton($buttonPlay, $playerName1, $playerName2);
   $playerWonPoints.textContent = "Aguardando jogadas...";
 });
 
 $buttonRestart.addEventListener("click", () => {
   isPlaying = false;
-  selectEnableButton($buttonPlay);
+  selectEnableButton($buttonPlay, $playerName1, $playerName2);
   selectDesableButton(...listBigButons, $buttonRestart);
   $playerWonPoints.textContent = "Aguardando iniciar...";
   reset();
@@ -216,6 +244,7 @@ const verifyWinner = () => {
     }
   }
 };
+
 const colorPlayerWinner = (listWinner) => {
   for (const item of listWinner) {
     item.classList.add("won");
@@ -228,38 +257,30 @@ const colorPlayerWinner = (listWinner) => {
   }
 };
 
-const printNameWinner = () => {
-  if (verifyWinner() === currentMove) {
-    if (currentMove === "X" && $playerName1.value)
-      $playerWonPoints.textContent = `Ganhador: ${$playerName1.value}`;
-    if (currentMove === "O" && $playerName2.value)
-      $playerWonPoints.textContent = `Ganhador: ${$playerName2.value}`;
-    if (currentMove === "X" && $playerName1.value === "")
-      $playerWonPoints.textContent = `Ganhador: ${currentMove}`;
-    if (currentMove === "O" && $playerName2.value === "")
-      $playerWonPoints.textContent = `Ganhador: ${currentMove}`;
-    givePoints(currentMove);
-
-    setTimeout(() => {
-      if (isPlaying) $playerWonPoints.textContent = "Aguardando jogadas...";
-    }, 2000);
-  }
-
-  if (currentMove === "Empate") {
-    $playerWonPoints.textContent = `${currentMove}!`;
-
-    setTimeout(() => {
-      if (isPlaying) $playerWonPoints.textContent = "Aguardando jogadas...";
-    }, 2000);
-  }
+const nameWinner = () => {
+  let winner = "";
+  if (currentMove === "X" && $playerName1.value) winner = $playerName1.value;
+  if (currentMove === "O" && $playerName2.value) winner = $playerName2.value;
+  if (currentMove === "X" && $playerName1.value === "") winner = currentMove;
+  if (currentMove === "O" && $playerName2.value === "") winner = currentMove;
+  if (currentMove === "Empate") winner = currentMove;
+  return winner;
 };
 
-const givePoints = (playerWinner) => {
-  if (playerWinner === "X") {
+const printNameWinner = () => {
+  $playerWonPoints.textContent = `Jogador ganhador: ${nameWinner()}`;
+
+  setTimeout(() => {
+    if (isPlaying) $playerWonPoints.textContent = "Aguardando jogadas...";
+  }, 2000);
+};
+
+const givePoints = () => {
+  if (currentMove === "X") {
     pointsPlayer1++;
     $pointsPlayer1txt.textContent = pointsPlayer1.toString().padStart(2, "0");
   }
-  if (playerWinner === "O") {
+  if (currentMove === "O") {
     pointsPlayer2++;
     $pointsPlayer2txt.textContent = pointsPlayer2.toString().padStart(2, "0");
   }
@@ -272,6 +293,7 @@ const reset = () => {
     itemList[2].textContent = "";
   }
   $playHistoryList.textContent = "";
+  $matchHistoryList.textContent = "";
   $pointsPlayer1txt.textContent = "00";
   $pointsPlayer2txt.textContent = "00";
   pointsPlayer1 = 0;
@@ -307,6 +329,7 @@ const checkBoardFilled = () => {
   ) {
     currentMove = "Empate";
     selectDesableButton(...listBigButons);
+
     setTimeout(() => {
       if (isPlaying) selectEnableButton(...listBigButons);
     }, 2000);
@@ -330,37 +353,24 @@ const selectEnableButton = (...parametro) => {
 };
 
 const addPlayHistory = (currentMove, position) => {
-  let playerName = "";
-  if (currentMove === "X" && $playerName1.value)
-    playerName = $playerName1.value;
-  if (currentMove === "O" && $playerName2.value)
-    playerName = $playerName2.value;
-  if (currentMove === "X" && $playerName1.value === "")
-    playerName = "Jogador X";
-  if (currentMove === "O" && $playerName2.value === "")
-    playerName = "Jogador O";
-  if (currentMove === "Empate" && $playerName1.value) {
-    currentMove = "X";
-    playerName = $playerName1.value;
-  }
-  if (currentMove === "Empate" && $playerName1.value === "") {
-    currentMove = "X";
-    playerName = "Jogador X";
-  }
-
   const $playHistory = document.createElement("div");
   $playHistory.classList.add("play-history");
 
   const $placePlay = document.createElement("div");
   $placePlay.classList.add("place-play");
-  $placePlay.textContent = currentMove;
+  if (currentMove === "Empate") $placePlay.textContent = "X";
+  if (currentMove !== "Empate") $placePlay.textContent = currentMove;
 
   const $history = document.createElement("div");
   $history.classList.add("history");
 
   const $playerMadeMove = document.createElement("span");
   $playerMadeMove.classList.add("player-made-move");
-  $playerMadeMove.textContent = playerName;
+  $playerMadeMove.textContent = nameWinner();
+  if (currentMove === "Empate" && $playerName1.value)
+    $playerMadeMove.textContent = $playerName1.value;
+  if (currentMove === "Empate" && $playerName1.value === "")
+    $playerMadeMove.textContent = "X";
 
   const $move = document.createElement("span");
   $move.classList.add("move");
@@ -371,6 +381,54 @@ const addPlayHistory = (currentMove, position) => {
   $playHistory.appendChild($history);
   $history.appendChild($playerMadeMove);
   $history.appendChild($move);
+};
+
+const saveMoves = () => {
+  let moves = [];
+  for (const boardItem of listBigButons) {
+    const movesList = boardItem.textContent;
+    moves.push(movesList);
+  }
+  return moves;
+};
+
+const addMatchHistory = () => {
+  const $matchHistory = document.createElement("div");
+  $matchHistory.classList.add("match-history");
+
+  const $playerWinner = document.createElement("div");
+  $playerWinner.classList.add("player-winner");
+
+  const $winnerTxt = document.createElement("span");
+  $winnerTxt.classList.add("winner-txt");
+  $winnerTxt.textContent = "Vencedor";
+
+  const $winnerName = document.createElement("span");
+  $winnerName.classList.add("winner-name");
+  $winnerName.textContent = nameWinner();
+
+  const $sceneryTxt = document.createElement("span");
+  $sceneryTxt.classList.add("scenery-txt");
+  $sceneryTxt.textContent = "Cenário";
+
+  const $smallBoard = document.createElement("div");
+  $smallBoard.classList.add("small-board");
+
+  $matchHistoryList.prepend($matchHistory);
+  $matchHistory.appendChild($playerWinner);
+  $matchHistory.appendChild($sceneryTxt);
+  $matchHistory.appendChild($smallBoard);
+  $playerWinner.appendChild($winnerTxt);
+  $playerWinner.appendChild($winnerName);
+
+  const listMoves = saveMoves();
+
+  for (const item of listMoves) {
+    const $boardPiece = document.createElement("div");
+    $boardPiece.classList.add("board-piece");
+    $boardPiece.textContent = item;
+    $smallBoard.appendChild($boardPiece);
+  }
 };
 
 selectDesableButton(...listBigButons, $buttonRestart);
