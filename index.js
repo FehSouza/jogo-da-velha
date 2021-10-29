@@ -1,49 +1,32 @@
-const $switchBall1 = document.querySelector(".switch-ball1");
+const $switchBallBot = document.querySelector(".switch-ball1");
 const $switchBall2 = document.querySelector(".switch-ball2");
-const $bigBoardPiece1 = document.querySelector(".big-board-piece1");
-const $bigBoardPiece2 = document.querySelector(".big-board-piece2");
-const $bigBoardPiece3 = document.querySelector(".big-board-piece3");
-const $bigBoardPiece4 = document.querySelector(".big-board-piece4");
-const $bigBoardPiece5 = document.querySelector(".big-board-piece5");
-const $bigBoardPiece6 = document.querySelector(".big-board-piece6");
-const $bigBoardPiece7 = document.querySelector(".big-board-piece7");
-const $bigBoardPiece8 = document.querySelector(".big-board-piece8");
-const $bigBoardPiece9 = document.querySelector(".big-board-piece9");
+const $bigBoardPiece = document.querySelectorAll(".big-board-piece");
 const $playerWonPoints = document.querySelector(".player-won-points");
 const $pointsPlayer1txt = document.querySelector(".points-jogador1");
 const $pointsPlayer2txt = document.querySelector(".points-jogador2");
 const $playerName1 = document.querySelector(".player-name1");
 const $playerName2 = document.querySelector(".player-name2");
 const $playHistoryList = document.querySelector(".play-history-list");
+const $matchHistoryList = document.querySelector(".match-history-list");
 const $buttonPlay = document.querySelector(".button-play");
 const $buttonRestart = document.querySelector(".button-restart");
-const $matchHistoryList = document.querySelector(".match-history-list");
 
 let currentMove = "X";
 let pointsPlayer1 = 0;
 let pointsPlayer2 = 0;
 let isPlaying = false;
+let bot = false;
 
-const listBigButons = [
-  $bigBoardPiece1,
-  $bigBoardPiece2,
-  $bigBoardPiece3,
-  $bigBoardPiece4,
-  $bigBoardPiece5,
-  $bigBoardPiece6,
-  $bigBoardPiece7,
-  $bigBoardPiece8,
-  $bigBoardPiece9,
-];
+const buttonList = $bigBoardPiece;
 
-const listHorizontal1 = [$bigBoardPiece1, $bigBoardPiece2, $bigBoardPiece3];
-const listHorizontal2 = [$bigBoardPiece4, $bigBoardPiece5, $bigBoardPiece6];
-const listHorizontal3 = [$bigBoardPiece7, $bigBoardPiece8, $bigBoardPiece9];
-const listVertical1 = [$bigBoardPiece1, $bigBoardPiece4, $bigBoardPiece7];
-const listVertical2 = [$bigBoardPiece2, $bigBoardPiece5, $bigBoardPiece8];
-const listVertical3 = [$bigBoardPiece3, $bigBoardPiece6, $bigBoardPiece9];
-const listDiagonal1 = [$bigBoardPiece1, $bigBoardPiece5, $bigBoardPiece9];
-const listDiagonal2 = [$bigBoardPiece3, $bigBoardPiece5, $bigBoardPiece7];
+const listHorizontal1 = [buttonList[0], buttonList[1], buttonList[2]];
+const listHorizontal2 = [buttonList[3], buttonList[4], buttonList[5]];
+const listHorizontal3 = [buttonList[6], buttonList[7], buttonList[8]];
+const listVertical1 = [buttonList[0], buttonList[3], buttonList[6]];
+const listVertical2 = [buttonList[1], buttonList[4], buttonList[7]];
+const listVertical3 = [buttonList[2], buttonList[5], buttonList[8]];
+const listDiagonal1 = [buttonList[0], buttonList[4], buttonList[8]];
+const listDiagonal2 = [buttonList[2], buttonList[4], buttonList[6]];
 
 const allLists = [
   listHorizontal1,
@@ -56,20 +39,21 @@ const allLists = [
   listDiagonal2,
 ];
 
-$switchBall1.addEventListener("click", () => {
-  $switchBall1.classList.toggle("switch-active1");
+$switchBallBot.addEventListener("click", () => {
+  $switchBallBot.classList.toggle("switch-active1");
+  bot = !bot;
 });
 
 $switchBall2.addEventListener("click", () => {
   $switchBall2.classList.toggle("switch-active2");
 });
 
-$bigBoardPiece1.addEventListener("click", () => {
-  if ($bigBoardPiece1.textContent === "") {
-    printPlay($bigBoardPiece1);
+const makePlay = (place, position) => {
+  if (place.textContent === "") {
+    printPlay(place);
     verifyWinner();
     checkBoardFilled();
-    addPlayHistory(currentMove, "Primeiro quadrado");
+    addPlayHistory(currentMove, `${clickPosition(position)} quadrado`);
     if (verifyWinner() === currentMove || currentMove === "Empate") {
       addMatchHistory();
       givePoints();
@@ -78,139 +62,41 @@ $bigBoardPiece1.addEventListener("click", () => {
     toggleMoves();
     resetBoard();
   }
-});
+};
 
-$bigBoardPiece2.addEventListener("click", () => {
-  if ($bigBoardPiece2.textContent === "") {
-    printPlay($bigBoardPiece2);
-    verifyWinner();
-    checkBoardFilled();
-    addPlayHistory(currentMove, "Segundo quadrado");
-    if (verifyWinner() === currentMove || currentMove === "Empate") {
-      addMatchHistory();
-      givePoints();
-      printNameWinner();
-    }
-    toggleMoves();
-    resetBoard();
-  }
-});
+for (let index = 0; index < buttonList.length; index++) {
+  const $boardButtons = buttonList[index];
+  $boardButtons.addEventListener("click", () => {
+    makePlay($boardButtons, index);
+    if (bot) botPlay();
+  });
+}
 
-$bigBoardPiece3.addEventListener("click", () => {
-  if ($bigBoardPiece3.textContent === "") {
-    printPlay($bigBoardPiece3);
-    verifyWinner();
-    checkBoardFilled();
-    addPlayHistory(currentMove, "Terceiro quadrado");
-    if (verifyWinner() === currentMove || currentMove === "Empate") {
-      addMatchHistory();
-      givePoints();
-      printNameWinner();
-    }
-    toggleMoves();
-    resetBoard();
-  }
-});
+const indexBot = () => {
+  const indexBotMove = Math.floor(Math.random() * 9);
+  return indexBotMove;
+};
 
-$bigBoardPiece4.addEventListener("click", () => {
-  if ($bigBoardPiece4.textContent === "") {
-    printPlay($bigBoardPiece4);
-    verifyWinner();
-    checkBoardFilled();
-    addPlayHistory(currentMove, "Quarto quadrado");
-    if (verifyWinner() === currentMove || currentMove === "Empate") {
-      addMatchHistory();
-      givePoints();
-      printNameWinner();
-    }
-    toggleMoves();
-    resetBoard();
-  }
-});
+const botPlay = () => {
+  let positionBotMove;
+  let indexBotPlay = indexBot();
 
-$bigBoardPiece5.addEventListener("click", () => {
-  if ($bigBoardPiece5.textContent === "") {
-    printPlay($bigBoardPiece5);
-    verifyWinner();
-    checkBoardFilled();
-    addPlayHistory(currentMove, "Quinto quadrado");
-    if (verifyWinner() === currentMove || currentMove === "Empate") {
-      addMatchHistory();
-      givePoints();
-      printNameWinner();
-    }
-    toggleMoves();
-    resetBoard();
+  while (
+    positionBotMove === undefined &&
+    !checkIsFull() &&
+    verifyWinner() !== currentMove
+  ) {
+    const isEmpty = !buttonList[indexBotPlay].textContent;
+    if (isEmpty) positionBotMove = buttonList[indexBotPlay];
+    if (!isEmpty) indexBotPlay = indexBot();
   }
-});
 
-$bigBoardPiece6.addEventListener("click", () => {
-  if ($bigBoardPiece6.textContent === "") {
-    printPlay($bigBoardPiece6);
-    verifyWinner();
-    checkBoardFilled();
-    addPlayHistory(currentMove, "Sexto quadrado");
-    if (verifyWinner() === currentMove || currentMove === "Empate") {
-      addMatchHistory();
-      givePoints();
-      printNameWinner();
-    }
-    toggleMoves();
-    resetBoard();
-  }
-});
-
-$bigBoardPiece7.addEventListener("click", () => {
-  if ($bigBoardPiece7.textContent === "") {
-    printPlay($bigBoardPiece7);
-    verifyWinner();
-    checkBoardFilled();
-    addPlayHistory(currentMove, "Sétimo quadrado");
-    if (verifyWinner() === currentMove || currentMove === "Empate") {
-      addMatchHistory();
-      givePoints();
-      printNameWinner();
-    }
-    toggleMoves();
-    resetBoard();
-  }
-});
-
-$bigBoardPiece8.addEventListener("click", () => {
-  if ($bigBoardPiece8.textContent === "") {
-    printPlay($bigBoardPiece8);
-    verifyWinner();
-    checkBoardFilled();
-    addPlayHistory(currentMove, "Oitavo quadrado");
-    if (verifyWinner() === currentMove || currentMove === "Empate") {
-      addMatchHistory();
-      givePoints();
-      printNameWinner();
-    }
-    toggleMoves();
-    resetBoard();
-  }
-});
-
-$bigBoardPiece9.addEventListener("click", () => {
-  if ($bigBoardPiece9.textContent === "") {
-    printPlay($bigBoardPiece9);
-    verifyWinner();
-    checkBoardFilled();
-    addPlayHistory(currentMove, "Nono quadrado");
-    if (verifyWinner() === currentMove || currentMove === "Empate") {
-      addMatchHistory();
-      givePoints();
-      printNameWinner();
-    }
-    toggleMoves();
-    resetBoard();
-  }
-});
+  if (positionBotMove) makePlay(positionBotMove, indexBotPlay);
+};
 
 $buttonPlay.addEventListener("click", () => {
   isPlaying = true;
-  selectEnableButton(...listBigButons, $buttonRestart);
+  selectEnableButton(...buttonList, $buttonRestart);
   selectDesableButton($buttonPlay, $playerName1, $playerName2);
   $playerWonPoints.textContent = "Aguardando jogadas...";
 });
@@ -218,10 +104,25 @@ $buttonPlay.addEventListener("click", () => {
 $buttonRestart.addEventListener("click", () => {
   isPlaying = false;
   selectEnableButton($buttonPlay, $playerName1, $playerName2);
-  selectDesableButton(...listBigButons, $buttonRestart);
+  selectDesableButton(...buttonList, $buttonRestart);
   $playerWonPoints.textContent = "Aguardando iniciar...";
   reset();
 });
+
+const clickPosition = (position) => {
+  const listPositions = [
+    "Primeiro",
+    "Segundo",
+    "Terceiro",
+    "Quarto",
+    "Quinto",
+    "Sexto",
+    "Sétimo",
+    "Oitavo",
+    "Nono",
+  ];
+  return listPositions[position];
+};
 
 const printPlay = (board) => {
   board.textContent = currentMove;
@@ -248,11 +149,11 @@ const verifyWinner = () => {
 const colorPlayerWinner = (listWinner) => {
   for (const item of listWinner) {
     item.classList.add("won");
-    selectDesableButton(...listBigButons);
+    selectDesableButton(...buttonList);
 
     setTimeout(() => {
       item.classList.remove("won");
-      if (isPlaying) selectEnableButton(...listBigButons);
+      if (isPlaying) selectEnableButton(...buttonList);
     }, 2000);
   }
 };
@@ -314,24 +215,29 @@ const resetBoard = () => {
   }
 };
 
-const checkBoardFilled = () => {
+const checkIsFull = () => {
   if (
-    $bigBoardPiece1.textContent &&
-    $bigBoardPiece2.textContent &&
-    $bigBoardPiece3.textContent &&
-    $bigBoardPiece4.textContent &&
-    $bigBoardPiece5.textContent &&
-    $bigBoardPiece6.textContent &&
-    $bigBoardPiece7.textContent &&
-    $bigBoardPiece8.textContent &&
-    $bigBoardPiece9.textContent &&
-    verifyWinner() !== currentMove
-  ) {
+    buttonList[0].textContent &&
+    buttonList[1].textContent &&
+    buttonList[2].textContent &&
+    buttonList[3].textContent &&
+    buttonList[4].textContent &&
+    buttonList[5].textContent &&
+    buttonList[6].textContent &&
+    buttonList[7].textContent &&
+    buttonList[8].textContent
+  )
+    return true;
+  return false;
+};
+
+const checkBoardFilled = () => {
+  if (checkIsFull() && verifyWinner() !== currentMove) {
     currentMove = "Empate";
-    selectDesableButton(...listBigButons);
+    selectDesableButton(...buttonList);
 
     setTimeout(() => {
-      if (isPlaying) selectEnableButton(...listBigButons);
+      if (isPlaying) selectEnableButton(...buttonList);
     }, 2000);
   }
 };
@@ -385,7 +291,7 @@ const addPlayHistory = (currentMove, position) => {
 
 const saveMoves = () => {
   let moves = [];
-  for (const boardItem of listBigButons) {
+  for (const boardItem of buttonList) {
     const movesList = boardItem.textContent;
     moves.push(movesList);
   }
@@ -431,4 +337,4 @@ const addMatchHistory = () => {
   }
 };
 
-selectDesableButton(...listBigButons, $buttonRestart);
+selectDesableButton(...buttonList, $buttonRestart);
