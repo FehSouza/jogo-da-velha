@@ -1,5 +1,7 @@
 const $switchBallBot = document.querySelector(".switch-ball1");
 const $switchBall2 = document.querySelector(".switch-ball2");
+const $switchBot = document.querySelector(".switch1");
+const $switch2 = document.querySelector(".switch2");
 const $bigBoardPiece = document.querySelectorAll(".big-board-piece");
 const $playerWonPoints = document.querySelector(".player-won-points");
 const $pointsPlayer1txt = document.querySelector(".points-jogador1");
@@ -10,12 +12,16 @@ const $playHistoryList = document.querySelector(".play-history-list");
 const $matchHistoryList = document.querySelector(".match-history-list");
 const $buttonPlay = document.querySelector(".button-play");
 const $buttonRestart = document.querySelector(".button-restart");
+const $overallWinner = document.querySelector(".overallWinner");
 
 let currentMove = "X";
 let pointsPlayer1 = 0;
 let pointsPlayer2 = 0;
 let isPlaying = false;
 let bot = false;
+let listMoves = [];
+let quantityOfMatch = 0;
+let md = true;
 
 const buttonList = $bigBoardPiece;
 
@@ -39,13 +45,14 @@ const allLists = [
   listDiagonal2,
 ];
 
-$switchBallBot.addEventListener("click", () => {
+$switchBot.addEventListener("click", () => {
   $switchBallBot.classList.toggle("switch-active1");
   bot = !bot;
 });
 
-$switchBall2.addEventListener("click", () => {
+$switch2.addEventListener("click", () => {
   $switchBall2.classList.toggle("switch-active2");
+  md = !md;
 });
 
 const makePlay = (place, position) => {
@@ -54,6 +61,7 @@ const makePlay = (place, position) => {
     verifyWinner();
     checkBoardFilled();
     addPlayHistory(currentMove, `${clickPosition(position)} quadrado`);
+    if (verifyWinner() === currentMove) quantityOfMatch++;
     if (verifyWinner() === currentMove || currentMove === "Empate") {
       addMatchHistory();
       givePoints();
@@ -141,6 +149,7 @@ const verifyWinner = () => {
       list[1].textContent === list[2].textContent
     ) {
       colorPlayerWinner(list);
+
       return currentMove;
     }
   }
@@ -258,7 +267,29 @@ const selectEnableButton = (...parametro) => {
   for (const item of parametro) enableButtonGeneric(item);
 };
 
+const positionOfPlayHistory = () => {
+  let index = -1;
+  for (const item of buttonList) {
+    if (item.textContent) index++;
+  }
+  return index;
+};
+
+const saveMoves = () => {
+  listMoves.push(getMoves());
+  return listMoves;
+};
+
+const printPlayHistory = (scenery) => {
+  for (let index = 0; index < scenery.length; index++) {
+    buttonList[index].textContent = scenery[index];
+  }
+};
+
 const addPlayHistory = (currentMove, position) => {
+  const indexPlayHistory = positionOfPlayHistory();
+  const movesPlayHistory = saveMoves();
+
   const $playHistory = document.createElement("div");
   $playHistory.classList.add("play-history");
 
@@ -287,9 +318,13 @@ const addPlayHistory = (currentMove, position) => {
   $playHistory.appendChild($history);
   $history.appendChild($playerMadeMove);
   $history.appendChild($move);
+
+  $playHistory.addEventListener("click", () => {
+    printPlayHistory(movesPlayHistory[indexPlayHistory]);
+  });
 };
 
-const saveMoves = () => {
+const getMoves = () => {
   let moves = [];
   for (const boardItem of buttonList) {
     const movesList = boardItem.textContent;
@@ -327,7 +362,7 @@ const addMatchHistory = () => {
   $playerWinner.appendChild($winnerTxt);
   $playerWinner.appendChild($winnerName);
 
-  const listMoves = saveMoves();
+  const listMoves = getMoves();
 
   for (const item of listMoves) {
     const $boardPiece = document.createElement("div");
