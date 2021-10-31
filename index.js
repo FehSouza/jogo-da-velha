@@ -69,6 +69,7 @@ const makePlay = (place, position) => {
     }
     toggleMoves();
     resetBoard();
+    bestOf();
   }
 };
 
@@ -113,6 +114,7 @@ $buttonRestart.addEventListener("click", () => {
   isPlaying = false;
   selectEnableButton($buttonPlay, $playerName1, $playerName2);
   selectDesableButton(...buttonList, $buttonRestart);
+  nameOveralWinner.remove();
   $playerWonPoints.textContent = "Aguardando iniciar...";
   reset();
 });
@@ -369,6 +371,67 @@ const addMatchHistory = () => {
     $boardPiece.classList.add("board-piece");
     $boardPiece.textContent = item;
     $smallBoard.appendChild($boardPiece);
+  }
+};
+
+const checkNumberMatchesBestOf = (bestOf) => {
+  if (quantityOfMatch >= bestOf) return true;
+  return false;
+};
+
+const passBestOfType = () => {
+  if (md) return checkNumberMatchesBestOf(3);
+  if (md === false) return checkNumberMatchesBestOf(5);
+};
+
+const passBestOfTypeOfPrint = () => {
+  if (md) return 3;
+  if (md === false) return 5;
+};
+
+const winnerBestOf = () => {
+  if (pointsPlayer1 > pointsPlayer2 && $playerName1.value === "") return "X";
+  if (pointsPlayer1 > pointsPlayer2 && $playerName1.value)
+    return $playerName1.value;
+  if (pointsPlayer1 < pointsPlayer2 && $playerName2.value === "") return "O";
+  if (pointsPlayer1 < pointsPlayer2 && $playerName2.value)
+    return $playerName2.value;
+};
+
+const nameOveralWinner = document.createElement("span");
+
+const textBestOfWinner = (typeBestOf, winner) => {
+  nameOveralWinner.classList.add("nameOveralWinner");
+  nameOveralWinner.textContent = `Ganhador do melhor de ${typeBestOf}: `;
+
+  const nameWinnerOfOveralWinner = document.createElement("span");
+  nameWinnerOfOveralWinner.classList.add("nameWinnerOfOveralWinner");
+  nameWinnerOfOveralWinner.textContent = `${winner}!`;
+
+  $overallWinner.appendChild(nameOveralWinner);
+  nameOveralWinner.appendChild(nameWinnerOfOveralWinner);
+};
+
+const printBestOfWinner = () => {
+  textBestOfWinner(passBestOfTypeOfPrint(), winnerBestOf());
+};
+
+const resetBestOf = () => {
+  setTimeout(() => {
+    for (const itemList of allLists) {
+      itemList[0].textContent = "";
+      itemList[1].textContent = "";
+      itemList[2].textContent = "";
+    }
+    selectDesableButton(...buttonList);
+    $playerWonPoints.textContent = "Aguardando iniciar...";
+  }, 2000);
+};
+
+const bestOf = () => {
+  if (passBestOfType()) {
+    printBestOfWinner();
+    resetBestOf();
   }
 };
 

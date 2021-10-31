@@ -10,7 +10,7 @@
   background-color: #ffffff;
   width: 65%;
   height: 100px;
-  margin: 50px 0px;
+  margin-top: 50px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -43,18 +43,29 @@
   text-transform: capitalize;
 }
 
-.nameOveralWinner {
-  margin-top: 50px;
+.overallWinner {
+  min-height: 30px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.nameOveralWinner,
+.nameWinnerOfOveralWinner {
   color: #0097e6;
   font-size: 24px;
   font-weight: 700;
+}
+
+.nameWinnerOfOveralWinner {
+  text-transform: capitalize;
 }
 
 .big-board {
   width: 525px;
   display: flex;
   flex-wrap: wrap;
-  margin-top: 50px;
+  margin-top: 8.5px;
 }
 
 .big-board-piece {
