@@ -45,15 +45,27 @@ const allLists = [
   listDiagonal2,
 ];
 
-$switchBot.addEventListener("click", () => {
+const switchBotExecute = () => {
   $switchBallBot.classList.toggle("switch-active1");
   bot = !bot;
-});
+};
 
-$switch2.addEventListener("click", () => {
+const switch2Execute = () => {
   $switchBall2.classList.toggle("switch-active2");
   md = !md;
-});
+};
+
+const switchEnable = () => {
+  $switchBot.addEventListener("click", switchBotExecute);
+  $switch2.addEventListener("click", switch2Execute);
+};
+
+const switchDisabled = () => {
+  $switchBot.removeEventListener("click", switchBotExecute);
+  $switch2.removeEventListener("click", switch2Execute);
+};
+
+switchEnable();
 
 const makePlay = (place, position) => {
   if (place.textContent === "") {
@@ -76,8 +88,9 @@ const makePlay = (place, position) => {
 for (let index = 0; index < buttonList.length; index++) {
   const $boardButtons = buttonList[index];
   $boardButtons.addEventListener("click", () => {
+    const isEmpty = $boardButtons.textContent === "";
     makePlay($boardButtons, index);
-    if (bot) botPlay();
+    if (bot && isEmpty) botPlay();
   });
 }
 
@@ -107,6 +120,7 @@ $buttonPlay.addEventListener("click", () => {
   isPlaying = true;
   selectEnableButton(...buttonList, $buttonRestart);
   selectDesableButton($buttonPlay, $playerName1, $playerName2);
+  switchDisabled();
   $playerWonPoints.textContent = "Aguardando jogadas...";
 });
 
@@ -114,6 +128,7 @@ $buttonRestart.addEventListener("click", () => {
   isPlaying = false;
   selectEnableButton($buttonPlay, $playerName1, $playerName2);
   selectDesableButton(...buttonList, $buttonRestart);
+  switchEnable();
   nameOveralWinner.remove();
   $playerWonPoints.textContent = "Aguardando iniciar...";
   reset();
@@ -417,6 +432,7 @@ const printBestOfWinner = () => {
 };
 
 const resetBestOf = () => {
+  quantityOfMatch = 0;
   setTimeout(() => {
     for (const itemList of allLists) {
       itemList[0].textContent = "";
@@ -425,7 +441,7 @@ const resetBestOf = () => {
     }
     selectDesableButton(...buttonList);
     $playerWonPoints.textContent = "Aguardando iniciar...";
-  }, 2000);
+  }, 2010);
 };
 
 const bestOf = () => {
